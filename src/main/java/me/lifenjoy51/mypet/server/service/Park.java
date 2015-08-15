@@ -6,13 +6,10 @@ public  interface Park
 {
 	/**	 */
 	
-	public List<AnothersPet> findAnothersPets(User parameter) ;
+	public List<AnothersPet> findAnothersPets(User user) ;
 	
 	/**	 */
 	
 	public void registerPet(Pet pet) ;
-
-
-	public Story getAnothersStory(AnothersPet anothersPet);
 }
 

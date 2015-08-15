@@ -1,5 +1,6 @@
 package me.lifenjoy51.mypet.server.domain;
 
+import me.lifenjoy51.mypet.server.domain.id.StoryId;
 import me.lifenjoy51.mypet.server.service.Reply;
 import me.lifenjoy51.mypet.server.service.Story;
 import me.lifenjoy51.mypet.server.service.StoryBox;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public class NormalStoryBox implements StoryBox {
     
-    Map<Integer, Story> storyMap;
+    Map<StoryId, Story> storyMap;
     
     public NormalStoryBox(){
         storyMap = new HashMap<>();
@@ -24,7 +25,7 @@ public class NormalStoryBox implements StoryBox {
     }
 
     @Override
-    public Story getStory(int storyId) {
+    public Story getStory(StoryId storyId) {
         return storyMap.get(storyId);
     }
 

@@ -4,6 +4,7 @@ import me.lifenjoy51.mypet.server.Application;
 import me.lifenjoy51.mypet.server.domain.NormalPet;
 import me.lifenjoy51.mypet.server.domain.NormalStory;
 import me.lifenjoy51.mypet.server.domain.NormalUser;
+import me.lifenjoy51.mypet.server.domain.id.PetId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -79,7 +80,7 @@ public class UserTest {
     }
 
     private Pet newAnotherPet() {
-        int id=2;
+        PetId id= new PetId(2);
         String name = "dori";
         Pet p = new NormalPet(id, name);
         beanFactory.autowireBean(p);
@@ -87,7 +88,7 @@ public class UserTest {
     }
 
     private Pet newMyPet() {
-        int id=1;
+        PetId id= new PetId(1);
         String name = "happy";
         Pet p = new NormalPet(id, name);
         beanFactory.autowireBean(p);

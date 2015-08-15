@@ -1,6 +1,7 @@
 package me.lifenjoy51.mypet.server.domain;
 
 import lombok.Data;
+import me.lifenjoy51.mypet.server.domain.id.PetId;
 import me.lifenjoy51.mypet.server.service.Pet;
 
 /**
@@ -9,14 +10,14 @@ import me.lifenjoy51.mypet.server.service.Pet;
 @Data
 public class NormalPet extends Pet {
 
-    int id;
+    PetId id;
 
     String name;
 
     NormalPet() {
     }
 
-    public NormalPet(int id, String name) {
+    public NormalPet(PetId id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -1,5 +1,6 @@
 package me.lifenjoy51.mypet.server.domain;
 
+import me.lifenjoy51.mypet.server.domain.id.PetId;
 import me.lifenjoy51.mypet.server.service.*;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class NormalPark implements Park {
     
-    Map<Integer, Pet> petMap;
+    Map<PetId, Pet> petMap;
     
     public NormalPark(){
         petMap = new HashMap<>();
@@ -32,10 +33,5 @@ public class NormalPark implements Park {
     @Override
     public void registerPet(Pet pet) {
         petMap.put(pet.getId(), pet);
-    }
-
-    @Override
-    public Story getAnothersStory(AnothersPet anothersPet) {
-        return null;
     }
 }

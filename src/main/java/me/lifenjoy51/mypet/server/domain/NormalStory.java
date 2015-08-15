@@ -1,6 +1,7 @@
 package me.lifenjoy51.mypet.server.domain;
 
 import lombok.Data;
+import me.lifenjoy51.mypet.server.domain.id.StoryId;
 import me.lifenjoy51.mypet.server.service.Pet;
 import me.lifenjoy51.mypet.server.service.Reply;
 import me.lifenjoy51.mypet.server.service.Story;
@@ -11,7 +12,7 @@ import me.lifenjoy51.mypet.server.service.Story;
 @Data
 public class NormalStory implements Story {
     
-    int id;
+    StoryId id;
     String name;
     Pet pet;
     Reply reply;

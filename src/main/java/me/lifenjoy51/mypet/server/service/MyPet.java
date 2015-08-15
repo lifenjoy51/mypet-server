@@ -1,10 +1,10 @@
 package me.lifenjoy51.mypet.server.service;
 /**
  */
-public interface MyPet extends Identifiable {
+public interface MyPet<T> extends Identifiable<T> {
 	/**	 */
 	
-	public void deliverStory(Story parameter) ;
+	public void deliverStory(Story story) ;
 	
 	/**	 */
 	

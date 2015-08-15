@@ -2,6 +2,9 @@ package me.lifenjoy51.mypet.server.service;
 
 import lombok.Data;
 import me.lifenjoy51.mypet.server.domain.NormalStoryBox;
+import me.lifenjoy51.mypet.server.domain.id.PetId;
+import me.lifenjoy51.mypet.server.domain.id.StoryId;
+import me.lifenjoy51.mypet.server.domain.id.UserId;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
@@ -16,14 +19,14 @@ import java.util.stream.Collectors;
 @Data
 public abstract class AbstractUser implements User {
     
-    int id;
+    UserId id;
     
     String name;
 
     /**
      * 애완동물!
      */
-    Map<Integer, Pet> pets;
+    Map<PetId, Pet> pets;
 
     /**
      * 내가 작성한 이야기를 담는곳.
@@ -43,7 +46,7 @@ public abstract class AbstractUser implements User {
     
     
     @Override
-    public int adoptPet(Pet pet) {
+    public PetId adoptPet(Pet pet) {
         this.pets.put(pet.getId(), pet);
         return pet.getId();
     }
@@ -54,7 +57,7 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public Pet callPet(int petId) {
+    public Pet callPet(PetId petId) {
         return pets.get(petId);
     }
 
@@ -68,7 +71,7 @@ public abstract class AbstractUser implements User {
     }
     
     @Override
-    public List<AnothersPet> listAnothersPets(int petId){
+    public List<AnothersPet> listAnothersPets(PetId petId){
         Assert.notNull(CollectionUtils.isEmpty(pets), "애완동물이 없습니다! 애완동물을 먼저 입양하세요!");
         //애완동물에게 찾아간 공원을 물어본다.
         Park park = this.pets.get(petId).getPark();
@@ -79,7 +82,7 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public Story readMyStory(int storyId) {
+    public Story readMyStory(StoryId storyId) {
         return storyBox.getStory(storyId);
     }
 
