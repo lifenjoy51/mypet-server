@@ -18,9 +18,9 @@ public interface User extends Identifiable<UserId> {
      */
     public PetId adoptPet(Pet pet);
 
-    public List<Pet> getPets();
+    public List<Pet> getAllPets();
 
-    public Pet callPet(PetId petId);
+    public Pet getPet(PetId petId);
 
     public Story readMyStory(StoryId storyId);
 

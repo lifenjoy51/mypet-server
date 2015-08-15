@@ -52,12 +52,12 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public List<Pet> getPets() {
+    public List<Pet> getAllPets() {
         return pets.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
     }
 
     @Override
-    public Pet callPet(PetId petId) {
+    public Pet getPet(PetId petId) {
         return pets.get(petId);
     }
 

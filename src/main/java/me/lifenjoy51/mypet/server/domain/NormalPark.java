@@ -25,7 +25,7 @@ public class NormalPark implements Park {
     public List<AnothersPet> findAnothersPets(User user) {
         List<AnothersPet> anothersPets = 
                 petMap.entrySet().stream()
-                        .filter(e -> user.getPets().stream().allMatch(pet -> pet.getId() != e.getKey()))
+                        .filter(e -> user.getAllPets().stream().allMatch(pet -> pet.getId() != e.getKey()))
                         .map(Map.Entry::getValue).collect(Collectors.toList());
         return anothersPets;
     }

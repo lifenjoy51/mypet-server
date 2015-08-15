@@ -12,7 +12,7 @@ public  interface Story  extends Identifiable<StoryId>
 	
 	public Reply getReply(ReplyId replyId) ;
 	
-	public List<Reply> getAllReply();
+	public List<Reply> getAllReplies();
 	
 	public ReplyId saveReply(Reply reply);
 	

@@ -5,6 +5,7 @@ import me.lifenjoy51.mypet.server.domain.NormalPet;
 import me.lifenjoy51.mypet.server.domain.NormalStory;
 import me.lifenjoy51.mypet.server.domain.NormalUser;
 import me.lifenjoy51.mypet.server.domain.id.PetId;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @ActiveProfiles("scratch")
+@Transactional
 public class UserTest {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -48,7 +51,7 @@ public class UserTest {
         //먼저 사용자를 생성해야한다.
         User u = newUser();
         //펫 생성!
-        Pet mp = newMyPet();
+        Pet mp = newMyPet(1);
         //사용자에게 입양시키구.
         u.adoptPet(mp);
         //이야기를 하나 작성한다.
@@ -62,7 +65,7 @@ public class UserTest {
         //다른 사용자로 받아온다!
         User au = newUser();
         //다른 사용자의 펫!
-        Pet ap = newAnotherPet();
+        Pet ap = newAnotherPet(22);
         // 역시 입양시키고
         au.adoptPet(ap);
         //이야기를 하나 작성한다.
@@ -79,17 +82,17 @@ public class UserTest {
         assertNotNull(myStory);
     }
 
-    private Pet newAnotherPet() {
-        PetId id= new PetId(2);
-        String name = "dori";
+    private Pet newAnotherPet(int seq) {
+        PetId id= new PetId(seq);
+        String name = RandomStringUtils.randomAlphabetic(5);
         Pet p = new NormalPet(id, name);
         beanFactory.autowireBean(p);
         return p;
     }
 
-    private Pet newMyPet() {
-        PetId id= new PetId(1);
-        String name = "happy";
+    private Pet newMyPet(int seq) {
+        PetId id= new PetId(seq);
+        String name = RandomStringUtils.randomAlphabetic(5);
         Pet p = new NormalPet(id, name);
         beanFactory.autowireBean(p);
         return p;
@@ -117,12 +120,46 @@ public class UserTest {
 
     @Test
     public void testListAnothersPets() throws Exception {
+        //먼저 사용자를 생성해야한다.
+        User u = newUser();
+        //펫 생성!
+        Pet mp = newMyPet(0);
+        //사용자에게 입양시키구.
+        u.adoptPet(mp);
+        //이야기를 하나 작성한다.
+        Story s = newStory(mp);
+        //이야기를 쓴다!
+        u.writeStory(s);
 
-    }
+        //다른 사용자 1
+        User au1 = newUser();
+        //다른 사용자의 펫!
+        Pet ap1 = newAnotherPet(11);
+        // 역시 입양시키고
+        au1.adoptPet(ap1);
+        //이야기를 하나 작성한다.
+        Story as1 = newStory(ap1);
+        //이야기를 쓴다!
+        au1.writeStory(as1);
 
-    @Test
-    public void testReadAnothersStory() throws Exception {
-
+        //다른 사용자 2
+        User au2 = newUser();
+        //다른 사용자의 펫!
+        Pet ap2 = newAnotherPet(22);
+        // 역시 입양시키고
+        au2.adoptPet(ap2);
+        //이야기를 하나 작성한다.
+        Story as2 = newStory(ap2);
+        //이야기를 쓴다!
+        au2.writeStory(as2);
+        
+        //사용자가 다른 사용자 1,2의 이야기를 볼 수 있는지 확인한다.
+        List<AnothersPet> anothersPetList = u.listAnothersPets(mp.getId());
+        log.debug("anothersPetList => {}", anothersPetList);
+        assertThat(anothersPetList, hasItem(ap1));
+        assertThat(anothersPetList, hasItem(ap2));
+        assertThat(anothersPetList, not(hasItem(mp)));
+        
     }
 
     @Test

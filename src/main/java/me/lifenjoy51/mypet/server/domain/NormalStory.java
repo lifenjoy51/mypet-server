@@ -38,7 +38,7 @@ public class NormalStory implements Story {
     }
 
     @Override
-    public List<Reply> getAllReply() {
+    public List<Reply> getAllReplies() {
         return this.replyMap.entrySet().stream().map(Map.Entry::getValue).collect(Collectors.toList());
     }
 
