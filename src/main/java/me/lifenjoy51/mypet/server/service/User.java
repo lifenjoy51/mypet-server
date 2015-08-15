@@ -1,6 +1,5 @@
 package me.lifenjoy51.mypet.server.service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public interface User {
 
     public Story readAnothersStory(AnothersPet anothersPet);
 
-    public Story readMyStory(Story story);
+    public Story readMyStory(int storyId);
 
     public ReplyWrittenByMe readReplyWrittenByMe();
 

@@ -7,9 +7,7 @@ public  interface StoryBox
 	
 	public Reply getReply() ;
 	
-	/**	 */
-	
-	public Story getStory() ;
+	public Story getStory(int storyId) ;
 	
 	/**	 */
 	

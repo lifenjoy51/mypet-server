@@ -2,7 +2,7 @@ package me.lifenjoy51.mypet.server.service;
 
 /**
  */
-public interface AnothersPet {
+public interface AnothersPet extends Identifiable {
     /**     */
 
     public void getStory();

@@ -1,9 +1,17 @@
 package me.lifenjoy51.mypet.server.service;
 
 import me.lifenjoy51.mypet.server.Application;
+import me.lifenjoy51.mypet.server.domain.NormalPet;
+import me.lifenjoy51.mypet.server.domain.NormalStory;
+import me.lifenjoy51.mypet.server.domain.NormalUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -17,7 +25,13 @@ import static org.junit.Assert.assertThat;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@ActiveProfiles("scratch")
 public class UserTest {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    AutowireCapableBeanFactory beanFactory;
 
     /**
      * 이야기 작성 테스트. <br/>
@@ -49,20 +63,33 @@ public class UserTest {
         Pet ap = newAnotherPet();
         // 역시 입양시키고
         au.adoptPet(ap);
+        //이야기를 하나 작성한다.
+        Story as = newStory();
+        //이야기를 쓴다!
+        au.writeStory(as);
         //다른사용자가 기존 사용자를 볼 수 있는지 확인한다.
         List<AnothersPet> anothersPetList = au.listAnothersPets();
+        log.debug("{}", anothersPetList);
         assertThat(anothersPetList, hasItem(mp));
         // - 내 보관함에 있는지 확인한다.
-        Story myStory = u.readMyStory(s);
+        Story myStory = u.readMyStory(s.getId());
         assertNotNull(myStory);
     }
 
     private Pet newAnotherPet() {
-        return null;
+        int id=2;
+        String name = "dori";
+        Pet p = new NormalPet(id, name);
+        beanFactory.autowireBean(p);
+        return p;
     }
 
     private Pet newMyPet() {
-        return null;
+        int id=1;
+        String name = "happy";
+        Pet p = new NormalPet(id, name);
+        beanFactory.autowireBean(p);
+        return p;
     }
 
     /**
@@ -71,7 +98,8 @@ public class UserTest {
      * @return
      */
     private Story newStory() {
-        return null;
+        Story s = new NormalStory();
+        return s;
     }
 
     /**
@@ -80,7 +108,8 @@ public class UserTest {
      * @return
      */
     private User newUser() {
-        return null;
+        User u = new NormalUser();
+        return u;
     }
 
     @Test
