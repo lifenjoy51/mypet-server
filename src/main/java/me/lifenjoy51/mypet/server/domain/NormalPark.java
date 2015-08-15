@@ -1,10 +1,8 @@
 package me.lifenjoy51.mypet.server.domain;
 
-import lombok.extern.apachecommons.CommonsLog;
 import me.lifenjoy51.mypet.server.service.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +21,10 @@ public class NormalPark implements Park {
     }
     
     @Override
-    public List<AnothersPet> findAnothersPets(User parameter) {
+    public List<AnothersPet> findAnothersPets(User user) {
         List<AnothersPet> anothersPets = 
                 petMap.entrySet().stream()
+                        .filter(e -> user.getPets().stream().allMatch(pet -> pet.getId() != e.getKey()))
                         .map(Map.Entry::getValue).collect(Collectors.toList());
         return anothersPets;
     }

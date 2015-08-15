@@ -4,11 +4,9 @@ package me.lifenjoy51.mypet.server.service;
  */
 public interface AnothersPet extends Identifiable {
     /**     */
-
-    public void getStory();
+    public Story readStory();
 
     /**     */
-
     public void writeReply(Reply parameter);
 
 

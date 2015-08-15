@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -50,7 +51,7 @@ public class UserTest {
         //사용자에게 입양시키구.
         u.adoptPet(mp);
         //이야기를 하나 작성한다.
-        Story s = newStory();
+        Story s = newStory(mp);
         //이야기를 쓴다!
         u.writeStory(s);
 
@@ -64,13 +65,14 @@ public class UserTest {
         // 역시 입양시키고
         au.adoptPet(ap);
         //이야기를 하나 작성한다.
-        Story as = newStory();
+        Story as = newStory(ap);
         //이야기를 쓴다!
         au.writeStory(as);
         //다른사용자가 기존 사용자를 볼 수 있는지 확인한다.
-        List<AnothersPet> anothersPetList = au.listAnothersPets();
-        log.debug("{}", anothersPetList);
+        List<AnothersPet> anothersPetList = au.listAnothersPets(ap.getId());
+        log.debug("anothersPetList => {}", anothersPetList);
         assertThat(anothersPetList, hasItem(mp));
+        assertThat(anothersPetList, not(hasItem(ap)));
         // - 내 보관함에 있는지 확인한다.
         Story myStory = u.readMyStory(s.getId());
         assertNotNull(myStory);
@@ -97,8 +99,8 @@ public class UserTest {
      *
      * @return
      */
-    private Story newStory() {
-        Story s = new NormalStory();
+    private Story newStory(Pet p) {
+        Story s = new NormalStory(p);
         return s;
     }
 

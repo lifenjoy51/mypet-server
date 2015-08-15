@@ -22,8 +22,8 @@ public abstract class Pet implements MyPet, AnothersPet{
     }
     
     @Override
-    public void getStory() {
-
+    public Story readStory() {
+        return story;
     }
 
     @Override
