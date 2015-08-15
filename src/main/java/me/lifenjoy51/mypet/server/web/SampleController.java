@@ -21,15 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import me.lifenjoy51.data.jpa.service.CityService;
 
 @Controller
 public class SampleController {
 
-	@RequestMapping("/")
-	@ResponseBody
-	@Transactional(readOnly = true)
-	public String helloWorld() {
-		return "";
-	}
+    @RequestMapping("/")
+    @ResponseBody
+    @Transactional(readOnly = true)
+    public String helloWorld() {
+        return "";
+    }
 }

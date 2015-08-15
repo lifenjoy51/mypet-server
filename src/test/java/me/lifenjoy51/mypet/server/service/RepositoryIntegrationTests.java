@@ -20,18 +20,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import me.lifenjoy51.data.jpa.domain.City;
-import me.lifenjoy51.data.jpa.domain.Hotel;
-import me.lifenjoy51.data.jpa.domain.HotelSummary;
-import me.lifenjoy51.data.jpa.domain.Rating;
-import me.lifenjoy51.data.jpa.domain.RatingCount;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
 /**
- * 
  * @author Oliver Gierke
  */
 @RunWith(SpringJUnit4ClassRunner.class)

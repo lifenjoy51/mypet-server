@@ -32,7 +32,7 @@ public abstract class AbstractUser implements User {
     }
     
     @Override
-    public Collection<AnothersPet> listAnothersPets(){
+    public List<AnothersPet> listAnothersPets(){
         //애완동물에게 찾아간 공원을 물어본다.
         Park park = pet.getPark();
         //공원에 있는 다른사람의 애완동물을 받아온다.
@@ -51,7 +51,7 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public Story readMyStory() {
+    public Story readMyStory(Story s) {
         return null;
     }
 
