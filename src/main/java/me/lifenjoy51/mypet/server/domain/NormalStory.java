@@ -31,9 +31,11 @@ public class NormalStory implements Story {
         replyMap = new HashMap<>();
     }
     
-    public NormalStory(Pet pet){
+    public NormalStory(Pet pet, String contents){
         this();
         this.pet = pet;
+        this.contents = contents;
+        this.dt = LocalDateTime.now();
     }
 
     @Override

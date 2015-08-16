@@ -48,6 +48,7 @@ public abstract class AbstractUser implements User {
     @Override
     public PetId adoptPet(Pet pet) {
         this.pets.put(pet.getId(), pet);
+        pet.setOwner(this);
         return pet.getId();
     }
 

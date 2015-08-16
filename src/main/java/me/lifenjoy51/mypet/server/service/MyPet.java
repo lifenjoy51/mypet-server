@@ -1,4 +1,7 @@
 package me.lifenjoy51.mypet.server.service;
+
+import java.util.List;
+
 /**
  */
 public interface MyPet<T> extends Identifiable<T> {
@@ -12,7 +15,7 @@ public interface MyPet<T> extends Identifiable<T> {
 	
 	/**	 */
 	
-	public void readReply() ;
+	public List<Reply> readReplies() ;
 	
 	
 }

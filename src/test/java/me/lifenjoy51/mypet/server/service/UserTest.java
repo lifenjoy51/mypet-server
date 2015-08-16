@@ -22,6 +22,7 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -80,7 +81,8 @@ public class UserTest {
      * @return
      */
     private Story newStory(Pet p) {
-        Story s = new NormalStory(p);
+        String text = TestUtil.randomStoryText();
+        Story s = new NormalStory(p, text);
         return s;
     }
 
@@ -115,10 +117,10 @@ public class UserTest {
         another.getUser().writeStory(another.getStory());
         
         //다른사용자가 기존 사용자를 볼 수 있는지 확인한다.
-        List<AnothersPet> anothersPetList = another.getUser().listAnothersPets(another.getPet().getId());
-        log.debug("anothersPetList => {}", anothersPetList);
-        assertThat(anothersPetList, hasItem(one.getPet()));
-        assertThat(anothersPetList, not(hasItem(another.getPet())));
+        List<AnothersPet> anotherPetList = another.getUser().listAnothersPets(another.getPet().getId());
+        log.debug("anotherPetList => {}", anotherPetList);
+        assertThat(anotherPetList, hasItem(one.getPet()));
+        assertThat(anotherPetList, not(hasItem(another.getPet())));
         // - 내 보관함에 있는지 확인한다.
         Story myStory = one.getUser().readMyStory(one.getStory().getId());
         assertNotNull(myStory);
@@ -142,11 +144,11 @@ public class UserTest {
         another2.getUser().writeStory(another2.getStory());
         
         //사용자가 다른 사용자 1,2의 이야기를 볼 수 있는지 확인한다.
-        List<AnothersPet> anothersPetList = one.getUser().listAnothersPets(one.getPet().getId());
-        log.debug("anothersPetList => {}", anothersPetList);
-        assertThat(anothersPetList, hasItem(another1.getPet()));
-        assertThat(anothersPetList, hasItem(another2.getPet()));
-        assertThat(anothersPetList, not(hasItem(one.getPet())));
+        List<AnothersPet> anotherPetList = one.getUser().listAnothersPets(one.getPet().getId());
+        log.debug("anotherPetList => {}", anotherPetList);
+        assertThat(anotherPetList, hasItem(another1.getPet()));
+        assertThat(anotherPetList, hasItem(another2.getPet()));
+        assertThat(anotherPetList, not(hasItem(one.getPet())));
         
     }
 
@@ -168,23 +170,25 @@ public class UserTest {
         another2.getUser().writeStory(another2.getStory());
 
         //다른 사용자의 이야기를 받아온다.
-        List<AnothersPet> anothersPetList = one.getUser().listAnothersPets(one.getPet().getId());
+        List<AnothersPet> anotherPetList = one.getUser().listAnothersPets(one.getPet().getId());
         
         //다른 사용자의 이야기 하나를 읽고
-        Story anothersStory = anothersPetList.get(0).readStory();
+        Story anotherStory = anotherPetList.get(0).readStory();
+        User receivedStoryOwner = anotherStory.getPet().getOwner();
         
         //답장한다.
-        Reply reply = newReply(anothersStory);
-        log.debug("anothersPetList => {}", anothersPetList);
-        assertThat(anothersPetList, hasItem(another1.getPet()));
-        assertThat(anothersPetList, hasItem(another2.getPet()));
-        assertThat(anothersPetList, not(hasItem(one.getPet())));
+        Reply reply = newReply(anotherStory);
+        one.getUser().writeReplyToAnothersStory(reply);
+        
+        //원래 주인이 답장을 읽을 수 있다.
+        List<Reply> receivedReplies = receivedStoryOwner.getPet(anotherStory.getPet().getId()).readReplies();
+        assertThat(receivedReplies, hasItem(reply));
 
     }
 
-    private Reply newReply(Story anothersStory) {
+    private Reply newReply(Story anotherStory) {
         String contents = RandomStringUtils.randomAlphabetic(20);
-        Reply reply = new NormalReply(anothersStory, TestUtil.randomReplyText());
+        Reply reply = new NormalReply(anotherStory, TestUtil.randomReplyText());
         return reply;
     }
 

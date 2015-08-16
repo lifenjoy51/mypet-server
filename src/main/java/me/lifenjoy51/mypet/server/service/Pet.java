@@ -1,27 +1,34 @@
 package me.lifenjoy51.mypet.server.service;
 
-import me.lifenjoy51.mypet.server.domain.NormalAdmin;
+import lombok.Data;
 import me.lifenjoy51.mypet.server.domain.id.PetId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lifenjoy51 on 2015-08-15.
  */
-public abstract class Pet implements MyPet<PetId>, AnothersPet<PetId>{
+@Data
+public abstract class Pet implements MyPet<PetId>, AnothersPet<PetId> {
 
+    //기본관리자.
     @Autowired
     @Qualifier("NormalAdmin")
     Admin admin;
-    
+
     Story story;
-    
-    public Pet(){
-        // 관리자는 우선 기본 관리자로.
+
+    User owner;
+
+    List<Reply> replyList;
+
+    public Pet() {
+        replyList = new ArrayList<>();
     }
-    
+
     @Override
     public Story readStory() {
         return story;
@@ -50,8 +57,8 @@ public abstract class Pet implements MyPet<PetId>, AnothersPet<PetId>{
     }
 
     @Override
-    public void readReply() {
-
+    public List<Reply> readReplies() {
+        return replyList;
     }
-    
+
 }
