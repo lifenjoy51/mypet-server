@@ -7,6 +7,7 @@ import me.lifenjoy51.mypet.server.service.Pet;
 import me.lifenjoy51.mypet.server.service.Reply;
 import me.lifenjoy51.mypet.server.service.Story;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,9 @@ public class NormalStory implements Story {
     String name;
     Pet pet;
     Map<ReplyId, Reply> replyMap;
+    
+    String contents;
+    LocalDateTime dt;
     
     NormalStory(){
         replyMap = new HashMap<>();

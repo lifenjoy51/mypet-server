@@ -11,6 +11,12 @@ import java.util.List;
  */
 public interface User extends Identifiable<UserId> {
 
+    public void writeStory(Story story);
+
+    public List<AnothersPet> listAnothersPets(PetId petId);
+
+    public void writeReplyToAnothersStory(Reply reply);
+
     /**
      * 애완동물을 입양한다.
      *
@@ -25,11 +31,5 @@ public interface User extends Identifiable<UserId> {
     public Story readMyStory(StoryId storyId);
 
     public ReplyWrittenByMe readReplyWrittenByMe();
-
-    public List<AnothersPet> listAnothersPets(PetId petId);
-
-    public void writeReplyToAnothersStory(Reply reply);
-
-    public void writeStory(Story story);
 }
 

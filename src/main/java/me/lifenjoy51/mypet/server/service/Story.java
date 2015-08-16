@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  */
-public  interface Story  extends Identifiable<StoryId>
+public  interface Story  extends Identifiable<StoryId>, ContentsWritable
 {
 	
 	public Reply getReply(ReplyId replyId) ;
