@@ -16,19 +16,32 @@
 
 package me.lifenjoy51.mypet.server.web;
 
+import me.lifenjoy51.mypet.server.domain.UserDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class SampleController {
+@RequestMapping("/api/v1")
+public class MypetController {
 
     @RequestMapping("/")
     @ResponseBody
     @Transactional(readOnly = true)
     public String helloWorld() {
-        return "";
+        return "mypet";
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    @Transactional
+    public ResponseEntity<UserDto> userPost(UserDto dto) {
+        //사용자로부터 필요한 정보를 받아온다.
+        return new ResponseEntity<UserDto>(dto, HttpStatus.OK);
     }
 }
