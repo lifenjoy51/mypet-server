@@ -1,6 +1,7 @@
 package me.lifenjoy51.mypet.server.service;
 
 import me.lifenjoy51.mypet.server.domain.id.PetId;
+import me.lifenjoy51.mypet.server.domain.id.ReplyId;
 import me.lifenjoy51.mypet.server.domain.id.StoryId;
 import me.lifenjoy51.mypet.server.domain.id.UserId;
 
@@ -30,6 +31,6 @@ public interface User extends Identifiable<UserId> {
 
     public Story readMyStory(StoryId storyId);
 
-    public ReplyWrittenByMe readReplyWrittenByMe();
+    public Reply readReplyWrittenByMe(ReplyId replyId);
 }
 

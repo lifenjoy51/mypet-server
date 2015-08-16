@@ -1,15 +1,18 @@
 package me.lifenjoy51.mypet.server.service;
+
+import me.lifenjoy51.mypet.server.domain.id.ReplyId;
+
 /**
  */
-public  interface ReplyBox 
+public  interface ReplyBox
 {
 	/**	 */
 	
-	public ReplyWrittenByMe getReplyWrittenByMe() ;
+	public Reply getReplyWrittenByMe(ReplyId replyId) ;
 	
 	/**	 */
 	
-	public void saveReplyWrittenByMe() ;
+	public void saveReplyWrittenByMe(Reply reply) ;
 	
 	
 }

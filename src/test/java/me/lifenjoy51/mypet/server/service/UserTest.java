@@ -97,6 +97,17 @@ public class UserTest {
     }
 
     /**
+     * 새로운 답장.
+     * @param anotherStory
+     * @return
+     */
+    private Reply newReply(Story anotherStory) {
+        String contents = TestUtil.randomReplyText();
+        Reply reply = new NormalReply(anotherStory, contents);
+        return reply;
+    }
+
+    /**
      * 이야기 작성 테스트. <br/>
      * - 이야기를 작성하면 애완동물이 이야기를 공원으로 들고간다. <br/>
      * - 공원에 내 애완동물이 있는지 확인한다. <br/>
@@ -183,22 +194,10 @@ public class UserTest {
         //원래 주인이 답장을 읽을 수 있다.
         List<Reply> receivedReplies = receivedStoryOwner.getPet(anotherStory.getPet().getId()).readReplies();
         assertThat(receivedReplies, hasItem(reply));
-
-    }
-
-    private Reply newReply(Story anotherStory) {
-        String contents = RandomStringUtils.randomAlphabetic(20);
-        Reply reply = new NormalReply(anotherStory, TestUtil.randomReplyText());
-        return reply;
-    }
-
-    @Test
-    public void testReadMyStory() throws Exception {
-
-    }
-
-    @Test
-    public void testReadReplyWrittenByMe() throws Exception {
+        
+        //내가 작성한 답글을 확인한다.
+        Reply writtenByMe = one.getUser().readReplyWrittenByMe(reply.getId());
+        assertEquals(reply.getContents(), writtenByMe.getContents());
 
     }
 }

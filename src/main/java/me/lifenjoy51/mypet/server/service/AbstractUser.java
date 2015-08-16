@@ -1,8 +1,10 @@
 package me.lifenjoy51.mypet.server.service;
 
 import lombok.Data;
+import me.lifenjoy51.mypet.server.domain.NormalReplyBox;
 import me.lifenjoy51.mypet.server.domain.NormalStoryBox;
 import me.lifenjoy51.mypet.server.domain.id.PetId;
+import me.lifenjoy51.mypet.server.domain.id.ReplyId;
 import me.lifenjoy51.mypet.server.domain.id.StoryId;
 import me.lifenjoy51.mypet.server.domain.id.UserId;
 import org.springframework.util.Assert;
@@ -41,6 +43,7 @@ public abstract class AbstractUser implements User {
     public AbstractUser(){
         //이야기 상자와 답글 상자를 만든다.
         this.storyBox = new NormalStoryBox();
+        this.replyBox = new NormalReplyBox();
         this.pets = new HashMap<>();
     }
     
@@ -88,12 +91,15 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public ReplyWrittenByMe readReplyWrittenByMe() {
-        return null;
+    public Reply readReplyWrittenByMe(ReplyId replyId) {
+        return replyBox.getReplyWrittenByMe(replyId);
     }
 
     @Override
     public void writeReplyToAnothersStory(Reply reply) {
+        //상대방에게 전달.
         reply.getStory().getPet().sendReply(reply);
+        //내 답장 목록에 저장.
+        this.replyBox.saveReplyWrittenByMe(reply);
     }
 }
