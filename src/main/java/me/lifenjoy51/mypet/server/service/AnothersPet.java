@@ -8,7 +8,7 @@ public interface AnothersPet<T> extends Identifiable<T> {
     public Story readStory();
 
     /**     */
-    public void writeReply(Reply reply);
+    public void sendReply(Reply reply);
 
 
 }

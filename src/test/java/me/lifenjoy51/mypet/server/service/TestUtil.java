@@ -38,8 +38,6 @@ public class TestUtil {
         scanner.close();
 
         testText = result.toString();
-        System.out.println("testText");
-        System.out.println(testText);
     }
 
     //이야기 생성하기

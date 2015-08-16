@@ -35,8 +35,8 @@ public abstract class Pet implements MyPet<PetId>, AnothersPet<PetId> {
     }
 
     @Override
-    public void writeReply(Reply reply) {
-
+    public void sendReply(Reply reply) {
+        replyList.add(reply);
     }
 
     @Override

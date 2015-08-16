@@ -93,7 +93,7 @@ public abstract class AbstractUser implements User {
     }
 
     @Override
-    public void writeReplyToAnothersStory(Reply parameter) {
-
+    public void writeReplyToAnothersStory(Reply reply) {
+        reply.getStory().getPet().sendReply(reply);
     }
 }
